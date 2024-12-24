@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% load bootstrap5 %}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+
+{% block content %}
+<h1 style="text-align: center;">
+    {{ user.username }}
+</h1>
+<div style="text-align: center;">
+<form action="{% url "users:update" pk=user.id %}">
+    <button type="submit" class="btn btn-primary" style="margin:0 10px;">Изменить</button>
+</form>
+<form action="{% url "users:delete" pk=user.id %}">
+    <button type="submit" class="btn btn-danger" style="margin:0 10px;">Удалить</button>
+</form>
+</div>
+{% endblock content %}

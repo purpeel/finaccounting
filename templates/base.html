@@ -1,0 +1,123 @@
+
+<html lang="ru" xmlns:spending="http://www.w3.org/1999/xhtml">
+    <head>
+        {% load bootstrap5 %}
+        {% bootstrap_css %}
+        {% bootstrap_javascript %}
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Hugo 0.84.0">
+    <title>Система учета финансов</title>
+    <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/pricing/">
+
+    
+
+    <!-- Bootstrap core CSS -->
+<link href="/docs/5.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+
+
+    <style>
+
+    body{
+        margin: 0;
+        padding: 0;
+        font-family: 'century gothic';
+    }
+    .btn{
+        border-radius:15px;
+    }
+    .Name{
+        font-size:2.5vw;
+        color:04a6d9;
+        font-weight:bold;
+        text-shadow: 1px 1px 1px black;
+    }
+
+       nav a{
+        font-size:1vw;
+        font-weight:bold;
+        transition:.15s;
+        box-shadow: 1px 1px 1px 2px;
+        border: 1px solid white;
+        padding: 0.3vw 1vw .3vw 1vw;
+        border-radius:3rem;
+       }
+       nav a:hover{
+            background-color:04a6d9;
+            border-color:04a6d9;
+            color:white !important;
+            box-shadow: 0 0 0 white;
+            transform: skew(-3deg,3deg);
+       }
+       nav a:active{
+        transform: skew(5deg,-5deg);
+        transform:scale(0.85);
+       }
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+    </style>
+
+    
+    <!-- Custom styles for this template -->
+    {% load static %}
+    <!-- Custom styles for this template -->
+    <link href="{% static 'css/style.css' %}" rel="stylesheet">
+  </head>
+  <body>
+    
+
+<div class="container py-3">
+  <header>
+    <div  class="d-flex flex-column flex-md-row align-items-center mb-4 pb-3 border-bottom border-4">
+      <a href="/" class="d-flex align-items-center text-dark text-decoration-none" previewlistener="true">
+        <span class="Name">Учёт финансов</i></span>
+      </a>
+      <nav class="d-inline-flex mt-2 mt-md-0 ms-md-auto">
+        {% if request.user.is_authenticated %}
+        <a class="me-3 py-2 text-dark text-decoration-none" href="{% url "spending:index" %}">Расходы</a>
+        <a class="me-3 py-2 text-dark text-decoration-none" href="{% url "income:index" %}">Доходы</a>
+        <a class="me-3 py-2 text-dark text-decoration-none" href="{% url "users:show" pk=request.user.id %}">{{ request.user.username }}</a>
+        <a class="py-2 text-dark text-decoration-none" href="{% url "users:logout" %}">Выйти</a>
+        {% else %}
+        <a class="me-3 py-2 text-dark text-decoration-none" href="{% url "users:create" %}">Регистрация</a>
+        <a class="py-2 text-dark text-decoration-none" href="{% url "users:login" %}">Вход</a>
+        {% endif %}
+      </nav>
+    </div>
+
+    
+  </header>
+  <main>
+    {% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+    <div{% if message.tags %} class="alert alert-{{ message.tags }}"{% endif %}>{{ message }}</div>
+    {% endfor %}
+</ul>
+{% endif %}
+    {% block content %}{% endblock content %}
+  </main>
+
+  <footer class="pt-4 my-md-5 pt-md-5">
+  </footer>
+</div>
+
+
+    
+  
+
+</body></html>

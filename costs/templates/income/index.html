@@ -1,0 +1,121 @@
+{% extends "base.html" %}
+{% load bootstrap5 %}
+
+{# Load CSS and JavaScript #}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+{% block content %}
+<h1 class="h1 my-4">
+    Список доходов
+</h1>
+<a class="btn btn-primary mb-3" href="{% url "income:create" %}">Создать доход</a>
+<a class="btn btn-primary mb-3" href="{% url "income:create_acc" %}">Создать/изменить цель</a>
+<div class="card">
+  <div class="card-body">
+<form method="get">
+  {{ filter1.form.as_p }}
+  <input type="submit" value='Применить фильтр' class="btn btn-primary"/>
+</form>
+</div>
+</div>
+<table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Название счёта</th>
+        <th scope="col">Сумма</th>
+        <th scope="col">Дата добавления</th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody>
+    {% for sp in filter1.qs %}
+      <tr>
+        <td>{{ sp.account }}</td>
+        <td>{{ sp.price }}</td>
+        <td>{{ sp.timestamp }}</td>
+        <td>
+            <a class="btn btn-warning" href="{% url 'income:update' pk=sp.id %}">Изменить</a>
+            <a class="btn btn-danger" href="{% url 'income:delete' pk=sp.id %}">Удалить</a>
+        </td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+<br>
+<br>
+{% if data %}
+<h1>Диаграмма</h1>
+<hr>
+<br>
+<br>
+<div id="container" style="width: 75%;">
+    <canvas id="pie-chart"></canvas>
+  </div>
+<br>
+<br>
+<table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Название Счёта</th>
+        <th scope="col">Цель</th>
+        <th scope="col">Прогресс</th>
+        <th scope="col">Баланс</th>
+      </tr>
+    </thead>
+    <tbody>
+    {% for acc_id, contents in d1.items %}
+      <tr style>
+        <td>{{ acc_id }}</td>
+        <td>{{ contents.2 }}</td>
+        <td>{{ contents.1 }}</td>
+        {% if contents.2 %}
+          {% if contents.0 >= contents.1 %}
+            <td style="background-color:lightgreen; color:white; text-shadow: 1px 1px 1px black"><b>{{ contents.0 }} из {{ contents.1}}</b></td>
+          {% else %}
+            <td>{{ contents.0 }} из {{ contents.1}}</td>
+          {% endif %}
+        {% else %}
+          <td>{{ contents.0 }}</td>
+          {% endif %}
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+{% else %}
+<h1>
+    Информация о данном отрезке отстутствует
+</h1>
+{% endif %}
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+  <script>
+
+    var config = {
+      type: 'pie',
+      data: {
+        datasets: [{
+          data: {{ data|safe }},
+          backgroundColor: [
+          'rgb(255, 99, 132)',
+          'rgb(54, 162, 235)',
+          'rgb(255, 205, 86)',
+          'rgb(158, 0, 0)',
+          'rgb(189, 255, 0)',
+          'rgb(6, 4, 255)',
+          'rgb(6, 160, 95)'
+          ],
+          label: 'Costs'
+        }],
+        labels: {{ labels|safe }}
+      },
+      options: {
+        responsive: true
+      }
+    };
+
+    window.onload = function() {
+      var ctx = document.getElementById('pie-chart').getContext('2d');
+      window.myPie = new Chart(ctx, config);
+    };
+</script>
+{% endblock content %}

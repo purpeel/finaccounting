@@ -1,0 +1,27 @@
+.alert {
+    position: relative;
+    padding: 1rem 1rem;
+    margin-bottom: 1rem;
+    border: 1px solid transparent;
+    border-radius: 0.25rem;
+  }
+
+  .alert-success {
+    color: #0f5132;
+    background-color: #d1e7dd;
+    border-color: #badbcc;
+  }
+
+  .alert-error {
+    color: #664d03;
+    background-color: #fff3cd;
+    border-color: #ffecb5;
+    }
+
+.ft {
+    position: absolute;
+    bottom: 0;
+    left: auto;
+    height: 30px;
+    width: 100%;
+}

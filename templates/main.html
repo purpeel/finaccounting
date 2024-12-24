@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% load bootstrap5 %}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+
+{% block content %}
+<div class="text-left">
+        <h1 style="border-radius:4rem 4rem 0 0; background-color:rgb(32, 178, 170, 0.2); margin-bottom:.3rem;padding:2rem;"><strong>Добро пожаловать в <i>Систему учета финансов!</i></strong></h1>
+        <p style="font-size:2.5vh;background-color:rgb(32, 178, 170, 0.2);margin-bottom:.3rem; padding:2rem;">Эффективно управляйте своими доходами и расходами, отслеживайте бюджет и достигайте финансовых целей с помощью нашей удобной платформы.</p>
+
+        <ul style="width:100%;font-size:2vh;background-color:rgb(32, 178, 170, 0.2);margin-bottom:.3rem; padding:2rem 2rem 2rem 6rem; text-align: left; display: inline-block;">
+            <li><strong>Контроль расходов:</strong> Легко добавляйте траты и анализируйте, на что уходит ваш бюджет.</li>
+            <li><strong>Аналитика и отчеты:</strong> Визуализируйте свои данные с помощью диаграмм для лучшего понимания.</li>
+            <li><strong>Личные цели:</strong> Создавайте финансовые цели и отслеживайте их прогресс.</li>
+        </ul>
+        <p style="font-size:2.5vh;border-radius:0 0 4rem 4rem; background-color:rgb(32, 178, 170, 0.2);margin-bottom:.5rem; padding:2rem;">Начните уже сегодня и сделайте первый шаг к финансовой стабильности!</p></div>
+<br>
+<br>
+
+{% if request.user.is_authenticated %}
+<a type="button" style="border-radius:2rem 2rem 0 0; margin-bottom:0.2rem" class="w-100 btn btn-lg btn-primary" href='{% url "spending:index" %}'>Расходы</a>
+<a type="button"  style="border-radius:0 0 2rem 2rem;" class="w-100 btn btn-lg btn-primary" href='{% url "income:index" %}'>Доходы</a>
+{% endif %}
+{% endblock content %}

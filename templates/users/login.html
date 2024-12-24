@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% load bootstrap5 %}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+{% block content %}
+{% load i18n %}
+<h1>
+    Вход
+</h1>
+ 
+<form method="post">
+    {% csrf_token %}
+    <div class="form-error">
+        {{ form.non_field_errors }}
+    </div>
+    {% for f in form %}
+    <p><label class="form-label" for="{{ f.id_for_label }}">{{f.label}}:</label>{{ f }}</p>
+    {% endfor %}
+    <button type="submit" class="btn btn-primary">Войти</button>
+</form>
+{% endblock content %}
